@@ -1,9 +1,9 @@
-export default function userReducer(state = "", action){
-  switch (action.type){  
+export default function userReducer(state = "", action) {
+  switch (action.type) {
     case "LOGIN_USER":
-      console.log(state)
-      return state = action.username
+      console.log(state);
+      return (state = action.username);
     default:
-      return state
+      return state;
   }
 }

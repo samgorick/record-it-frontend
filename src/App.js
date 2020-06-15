@@ -1,16 +1,18 @@
-import React from 'react';
-import Navbar from './components/Navbar'
-import Notes from './containers/Notes'
-import Login from './components/Login'
-
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Notes from "./containers/Notes";
+import Login from "./components/Login";
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <Login />
-      <Notes />
-    </div>
+    <Router>
+      <div className='App'>
+        <Navbar />
+        <Route path='/login' component={Login} />
+        <Route path='/notes' component={Notes} />
+      </div>
+    </Router>
   );
 }
 
