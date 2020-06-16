@@ -1,7 +1,9 @@
+const API = 'http://localhost:3000/notes'
+
 export function addNote(note, history) {
   return dispatch => {
     dispatch({ type: "START_ADD_NOTE" })
-    fetch("http://localhost:3000/notes", {
+    fetch(API, {
       method: "POST",
       headers: {
         "content-type": "application/json"
@@ -19,7 +21,7 @@ export function addNote(note, history) {
 export function editNote(note, history) {
   return dispatch => {
     dispatch({ type: "START_EDIT_NOTE" })
-    fetch(`http://localhost:3000/notes/${note.id}`, {
+    fetch(`${API}/${note.id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json"
@@ -29,6 +31,18 @@ export function editNote(note, history) {
     .then(resp => resp.json())
     .then(json => {
       dispatch({type: "EDIT_NOTE", note: json})
+      history.push('/notes')
+    })
+  }
+}
+
+export function deleteNote(noteId, history) {
+  return dispatch => {
+    dispatch({ type: "START_DELETE" })
+    fetch(`${API}/${noteId}`, { method: "DELETE"})
+    .then(resp => resp.json())
+    .then(json => {
+      dispatch({type: "DELETE_NOTE", noteId})
       history.push('/notes')
     })
   }

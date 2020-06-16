@@ -10,7 +10,7 @@ const SummaryNote = (props) => (
       </div>
       <div className="extra">
         <button className="ui right floated button">
-          <Link to="/notes/new">
+          <Link key={props.note.id} to={`/notes/${props.note.id}`}>
             View
           </Link>
         </button>

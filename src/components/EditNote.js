@@ -27,11 +27,11 @@ class EditNote extends React.Component {
 
   componentDidMount(){
     let noteId = this.props.match.params.id
-    let note = this.props.notes.filter(note => note.id === parseInt(noteId))
+    let note = this.props.notes.find(note => note.id === parseInt(noteId))
     this.setState({
-      id: note[0].id,
-      title: note[0].title,
-      content: note[0].content
+      id: note.id,
+      title: note.title,
+      content: note.content
     })
   }
 
