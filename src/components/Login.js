@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/users";
+import { Button, Form, Grid, Header, Segment } from "semantic-ui-react";
 
 class Login extends React.Component {
   state = {
@@ -23,28 +24,30 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className='ui centered ten wide column grid'>
-        <div className='column'>
-          <h1 className='ui center aligned header'>Login</h1>
-          <form className='ui large form' onSubmit={this.handleSubmit}>
-            <div className='ui stacked segment'>
-              <div className='field'>
-                <div className='ui left icon input'>
-                  <i className='user icon'></i>
-                  <input
-                    type='text'
-                    name='username'
-                    value={this.state.username}
-                    placeholder='Enter username...'
-                    onChange={this.handleChange}
-                  ></input>
-                </div>
-              </div>
-              <button className='ui fluid large primary button' type='submit'>Login</button>
-            </div>
-          </form>
-        </div>
-      </div>
+      <Grid centered columns={2} className='max-height' verticalAlign='middle'>
+        <Grid.Column>
+          <Header as='h1' textAlign='center'>
+            Login
+          </Header>
+          <Segment>
+            <Form size='large' onSubmit={this.handleSubmit}>
+              <Form.Input
+                fluid
+                icon='user'
+                iconPosition='left'
+                type='text'
+                name='username'
+                value={this.state.username}
+                placeholder='Enter username...'
+                onChange={this.handleChange}
+              />
+              <Button fluid color='blue' size='large' type='submit'>
+                Login
+              </Button>
+            </Form>
+          </Segment>
+        </Grid.Column>
+      </Grid>
     );
   }
 }

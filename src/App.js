@@ -4,37 +4,37 @@ import Notes from "./containers/Notes";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import CreateNote from "./components/CreateNote";
-import EditNote from "./components/EditNote"
-import ShowNote from "./components/ShowNote"
+import EditNote from "./components/EditNote";
+import ShowNote from "./components/ShowNote";
 import { connect } from "react-redux";
-import {logoutUser} from "./actions/users"
+import { logoutUser } from "./actions/users";
+import { Container } from "semantic-ui-react";
 
 class App extends React.Component {
-
   logout = () => {
-    this.props.logout()
-  }
+    this.props.logout();
+  };
 
   render() {
     return (
       <Router>
-        <div className='ui grid container'>
-          {this.props.loggedIn ? (
-            <>
-              <Navbar logout={this.props.logout}/>
+        {this.props.loggedIn ? (
+          <>
+            <Navbar logout={this.props.logout} />
+            <Container>
               <Switch>
                 <Route exact path='/notes/new' component={CreateNote} />
                 <Route exact path='/notes/:id' component={ShowNote} />
                 <Route exact path='/notes/edit/:id' component={EditNote} />
                 <Route exact path='/notes' component={Notes} />
               </Switch>
-            </>
-          ) : (
-            <>
-              <Route path='/' component={Login} />
-            </>
-          )}
-        </div>
+            </Container>
+          </>
+        ) : (
+          <Container className="max-height">
+            <Route path='/' component={Login} />
+          </Container>
+        )}
       </Router>
     );
   }
@@ -45,7 +45,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return { logout: () => dispatch(logoutUser())}
-}
+  return { logout: () => dispatch(logoutUser()) };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
