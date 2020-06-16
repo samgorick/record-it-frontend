@@ -16,3 +16,7 @@ export function loginUser(username, history) {
       });
   };
 }
+
+export function logoutUser() {
+  return { type: "LOGOUT_USER" }
+}
