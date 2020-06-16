@@ -1,4 +1,4 @@
-export function loginUser(username) {
+export function loginUser(username, history) {
   return dispatch => {
     dispatch({ type: "START_USER_LOGIN" });
     fetch("http://localhost:3000/users", {
@@ -9,8 +9,10 @@ export function loginUser(username) {
       body: JSON.stringify({ username: username })
     })
       .then(resp => resp.json())
-      .then(userData => console.log(userData));
+      .then(userData => {
+        dispatch({ type: "LOGIN_USER", userData})
+        dispatch({ type: "SET_NOTES", notes: userData.notes})
+        history.push('/notes')
+      });
   };
 }
-
-// return {type: "LOGIN_USER", username: username }

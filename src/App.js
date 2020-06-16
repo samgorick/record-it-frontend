@@ -1,19 +1,35 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
 import Notes from "./containers/Notes";
 import Login from "./components/Login";
+import Navbar from "./components/Navbar";
+import CreateNote from "./components/CreateNote";
+import { connect } from "react-redux";
 
-function App() {
-  return (
-    <Router>
-      <div className='App'>
-        <Navbar />
-        <Route path='/login' component={Login} />
-        <Route path='/notes' component={Notes} />
-      </div>
-    </Router>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <Router>
+        <div className='ui grid container'>
+          {this.props.loggedIn ? (
+            <>
+              <Navbar />
+              <Route exact path='/notes/new' component={CreateNote} />
+              <Route exact path='/notes' component={Notes} />
+            </>
+          ) : (
+            <>
+              <Route path='/' component={Login} />
+            </>
+          )}
+        </div>
+      </Router>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return { loggedIn: state.users.id };
+};
+
+export default connect(mapStateToProps)(App);

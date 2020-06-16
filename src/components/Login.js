@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../actions/users";
-import { NavLink } from "react-router-dom";
 
 class Login extends React.Component {
   state = {
@@ -16,7 +15,7 @@ class Login extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.loginUser(this.state.username);
+    this.props.loginUser(this.state.username, this.props.history);
     this.setState({
       username: ""
     });
@@ -24,25 +23,35 @@ class Login extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type='text'
-          name='username'
-          value={this.state.username}
-          placeholder='Enter username...'
-          onChange={this.handleChange}
-        ></input>
-        <NavLink to='/notes'>
-          <input type='submit'></input>
-        </NavLink>
-      </form>
+      <div className='ui centered ten wide column grid'>
+        <div className='column'>
+          <h1 className='ui center aligned header'>Login</h1>
+          <form className='ui large form' onSubmit={this.handleSubmit}>
+            <div className='ui stacked segment'>
+              <div className='field'>
+                <div className='ui left icon input'>
+                  <i className='user icon'></i>
+                  <input
+                    type='text'
+                    name='username'
+                    value={this.state.username}
+                    placeholder='Enter username...'
+                    onChange={this.handleChange}
+                  ></input>
+                </div>
+              </div>
+              <button className='ui fluid large primary button' type='submit'>Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    loginUser: username => dispatch(loginUser(username))
+    loginUser: (username, history) => dispatch(loginUser(username, history))
   };
 };
 

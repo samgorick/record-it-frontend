@@ -1,11 +1,26 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const SummaryNote = (props) => (
-  <div>
-    <h1>{props.note.title}</h1>
-    <p>{props.note.content}</p>
-    <button>View</button>
-    <button>Edit</button>
+  <div className="item">
+    <div className="content">
+      <h1 className="header">{props.note.title}</h1>
+      <div className="description">
+        <p>{props.note.content.slice(0, 40)}{props.note.content.length > 40 ? "..." : ""}</p>
+      </div>
+      <div className="extra">
+        <button className="ui right floated button">
+          <Link to="/notes/new">
+            View
+          </Link>
+        </button>
+        <button className="ui right floated button">
+          <Link to="/notes/new">
+            Edit
+          </Link>
+        </button>
+      </div>
+    </div>
   </div>
 )
 

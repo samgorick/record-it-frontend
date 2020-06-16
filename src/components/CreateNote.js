@@ -16,8 +16,8 @@ class CreateNote extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    console.log(this.state)
-    this.props.addNote(this.state)
+    const noteObj = {...this.state, user_id: this.props.id}
+    this.props.addNote(noteObj, this.props.history)
     this.setState({
       title: "",
       content: ""
@@ -26,30 +26,50 @@ class CreateNote extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type='text'
-          name='title'
-          value={this.state.title}
-          onChange={this.handleChange}
-          placeholder='Enter Note Title...'
-        ></input>
-        <input
-          type='text'
-          name='content'
-          value={this.state.content}
-          onChange={this.handleChange}
-          placeholder='Enter Note Content...'
-        ></input>
-        <input type='submit'></input>
-      </form>
+      <div className='ui centered ten wide column grid'>
+        <div className='column'>
+          <form className='ui large form' onSubmit={this.handleSubmit}>
+            <div className='ui stacked segment'>
+              <div className='field'>
+                <div className='ui input'>
+                  <input
+                    type='text'
+                    name='title'
+                    value={this.state.title}
+                    onChange={this.handleChange}
+                    placeholder='Enter Note Title...'
+                  ></input>
+                </div>
+              </div>
+              <div className='field'>
+                <div className='ui input'>
+                  <textarea
+                    type='text'
+                    name='content'
+                    value={this.state.content}
+                    onChange={this.handleChange}
+                    placeholder='Enter Note Content...'
+                  ></textarea>
+                </div>
+              </div>
+              <button className='ui fluid small primary button' type='submit'>
+                Create Note
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addNote: (note) => dispatch(addNote(note))} 
+    addNote: (note, history) => dispatch(addNote(note, history))} 
 }
 
-export default connect(null, mapDispatchToProps)(CreateNote);
+const mapStateToProps = state => {
+  return { id: state.users.id}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNote);
