@@ -23,6 +23,7 @@ class Login extends React.Component {
   };
 
   render() {
+    console.log(this.props)
     return (
       <Grid centered columns={2} className='max-height' verticalAlign='middle'>
         <Grid.Column>

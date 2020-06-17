@@ -2,13 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { deleteNote } from "../actions/notes";
-import { Grid, Segment, Item, Button, Icon } from "semantic-ui-react";
+import { Grid, Segment, Item, Button, Icon, Label } from "semantic-ui-react";
+import moment from 'moment'
 
 class ShowNote extends React.Component {
   state = {
     id: null,
     title: "",
-    content: ""
+    content: "",
+    tags: [],
+    updated_at: ""
   };
 
   componentDidMount() {
@@ -17,7 +20,9 @@ class ShowNote extends React.Component {
     this.setState({
       id: note.id,
       title: note.title,
-      content: note.content
+      content: note.content,
+      tags: note.tags,
+      updatedAt: note.updated_at
     });
   }
 
@@ -26,7 +31,8 @@ class ShowNote extends React.Component {
     this.setState({
       id: null,
       title: "",
-      content: ""
+      content: "",
+      tags: []
     });
   };
 
@@ -36,11 +42,18 @@ class ShowNote extends React.Component {
         <Grid.Column>
           <Segment>
             <Item>
-              <Item.Content>
+              <Item.Content className='dropdown-spacing'>
                 <Item.Header as='h1'>{this.state.title}</Item.Header>
+                <Item.Meta>{moment(this.state.updatedAt).fromNow()}</Item.Meta>
                 <Item.Description as='p' className='show-item-spacing'>
                   {this.state.content}
                 </Item.Description>
+                {this.state.tags.map(tag => (
+                  <Label>
+                    <Icon name='tag' />
+                    {tag}
+                  </Label>
+                ))}
               </Item.Content>
               <Item.Extra>
                 <Link to='/notes'>

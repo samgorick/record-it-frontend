@@ -1,17 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addNote } from "../actions/notes";
-import { Grid, Button, Form, Segment } from "semantic-ui-react";
+import { Tags } from "../components/Tags"
+import { Grid, Button, Form, Segment, Dropdown } from "semantic-ui-react";
 
 class CreateNote extends React.Component {
   state = {
     title: "",
-    content: ""
+    content: "",
+    tags: []
   };
 
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
+    });
+  };
+
+  handleDropdown = (event, data) => {
+    this.setState({
+      tags: data.value
     });
   };
 
@@ -21,7 +29,8 @@ class CreateNote extends React.Component {
     this.props.addNote(noteObj, this.props.history);
     this.setState({
       title: "",
-      content: ""
+      content: "",
+      tags: []
     });
   };
 
@@ -49,6 +58,17 @@ class CreateNote extends React.Component {
                   placeholder='Enter Note Content...'
                 ></textarea>
               </Form.Field>
+              <Dropdown
+                name='tags'
+                className="dropdown-spacing"
+                value={this.state.tags}
+                onChange={this.handleDropdown}
+                placeholder='Tags...'
+                fluid
+                multiple
+                selection
+                options={Tags}
+              />
               <Button fluid color='blue' type='submit'>
                 Create Note
               </Button>
