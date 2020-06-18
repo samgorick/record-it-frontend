@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import App from "./app/App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import indexReducer from "./reducers/index";
+import indexReducer from "./indexReducers";
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 const store = createStore(indexReducer, composeWithDevTools(applyMiddleware(thunk)))

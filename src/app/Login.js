@@ -1,11 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import { loginUser } from "../actions/users";
-import { Button, Form, Grid, Header, Segment } from "semantic-ui-react";
+import { loginUser } from "./userActions";
+import { Button, Form, Grid, Header, Segment, Loader } from "semantic-ui-react";
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loginUser: (username, history) => dispatch(loginUser(username, history))
+  };
+};
 
 class Login extends React.Component {
   state = {
-    username: ""
+    username: "",
+    isLoading: false
   };
 
   handleChange = event => {
@@ -14,24 +21,32 @@ class Login extends React.Component {
     });
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
+  handleSubmit = () => {
     this.props.loginUser(this.state.username, this.props.history);
     this.setState({
-      username: ""
+      username: "",
+      isLoading: false
     });
   };
 
+  handleLoad = event => {
+    event.preventDefault();
+    this.setState({
+      isLoading: true
+    });
+    setTimeout(this.handleSubmit, 1000);
+  };
+
   render() {
-    console.log(this.props)
     return (
       <Grid centered columns={2} className='max-height' verticalAlign='middle'>
         <Grid.Column>
           <Header as='h1' textAlign='center'>
             Login
           </Header>
+          {this.state.isLoading ? <Loader active /> : null}
           <Segment>
-            <Form size='large' onSubmit={this.handleSubmit}>
+            <Form size='large' onSubmit={this.handleLoad}>
               <Form.Input
                 fluid
                 icon='user'
@@ -52,11 +67,5 @@ class Login extends React.Component {
     );
   }
 }
-
-const mapDispatchToProps = dispatch => {
-  return {
-    loginUser: (username, history) => dispatch(loginUser(username, history))
-  };
-};
 
 export default connect(null, mapDispatchToProps)(Login);

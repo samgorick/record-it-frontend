@@ -1,10 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addNote } from "../actions/notes";
-import { Tags } from "../components/Tags"
+import { addNote } from "./noteActions";
+import { Tags } from "../constants/Tags"
 import { Grid, Button, Form, Segment, Dropdown } from "semantic-ui-react";
 
-class CreateNote extends React.Component {
+const mapStateToProps = state => ({ id: state.users.id });
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addNote: (note, history) => dispatch(addNote(note, history))
+  };
+};
+
+class NoteCreate extends React.Component {
   state = {
     title: "",
     content: "",
@@ -80,14 +88,4 @@ class CreateNote extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addNote: (note, history) => dispatch(addNote(note, history))
-  };
-};
-
-const mapStateToProps = state => {
-  return { id: state.users.id };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateNote);
+export default connect(mapStateToProps, mapDispatchToProps)(NoteCreate);

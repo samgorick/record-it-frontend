@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Item, Button, Label, Icon } from "semantic-ui-react";
 import moment from 'moment'
 
-const SummaryNote = props => (
+const NoteSummaryShow = props => (
   <Item>
     <Item.Content>
       <Item.Header as='h1'>{props.note.title}</Item.Header>
@@ -20,7 +20,7 @@ const SummaryNote = props => (
           </Label>
         ))}
         <Link key={props.note.id} to={`/notes/${props.note.id}`}>
-          <Button floated='right'>View</Button>
+          <Button color="blue" floated='right'>View</Button>
         </Link>
         <Link key={props.note.id} to={`/notes/edit/${props.note.id}`}>
           <Button floated='right'>Edit</Button>
@@ -30,4 +30,4 @@ const SummaryNote = props => (
   </Item>
 );
 
-export default SummaryNote;
+export default NoteSummaryShow;

@@ -10,6 +10,8 @@ export default function noteReducer(state = [], action){
       return sorted(state.map(note => note.id === action.note.id ? action.note : note))
 
     case "DELETE_NOTE":
+      console.log("in reducer", action.noteId)
+      console.log(state)
       return sorted(state.filter(note => note.id !== action.noteId))
     
     default:

@@ -1,11 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { deleteNote } from "../actions/notes";
+import { deleteNote } from "./noteActions";
 import { Grid, Segment, Item, Button, Icon, Label } from "semantic-ui-react";
 import moment from 'moment'
 
-class ShowNote extends React.Component {
+const mapStateToProps = state => ({ notes: state.notes });
+
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteNote: (noteId, history) => dispatch(deleteNote(noteId, history))
+  };
+};
+
+class NoteFullShow extends React.Component {
   state = {
     id: null,
     title: "",
@@ -57,10 +65,20 @@ class ShowNote extends React.Component {
               </Item.Content>
               <Item.Extra>
                 <Link to='/notes'>
-                  <Button>Back to all notes</Button>
+                  <Button animated="vertical">
+                    <Button.Content visible>Back to all notes</Button.Content>
+                    <Button.Content hidden>
+                      <Icon name="arrow left" />
+                    </Button.Content>
+                  </Button>
                 </Link>
                 <Link to={`/notes/edit/${this.state.id}`}>
-                  <Button>Edit</Button>
+                  <Button animated="vertical">
+                    <Button.Content visible>Edit</Button.Content>
+                    <Button.Content hidden>
+                      <Icon name="edit" />
+                    </Button.Content>
+                  </Button>
                 </Link>
                 <Link to='/notes' onClick={this.handleClick}>
                   <Button color='red' floated='right' animated='vertical'>
@@ -79,14 +97,4 @@ class ShowNote extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { notes: state.notes };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    deleteNote: (noteId, history) => dispatch(deleteNote(noteId, history))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShowNote);
+export default connect(mapStateToProps, mapDispatchToProps)(NoteFullShow);

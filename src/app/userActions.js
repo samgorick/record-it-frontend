@@ -11,7 +11,7 @@ export function loginUser(username, history) {
       .then(resp => resp.json())
       .then(userData => {
         dispatch({ type: "LOGIN_USER", userData})
-        dispatch({ type: "SET_NOTES", notes: userData.notes.map(note => ({...note, isVisible: true}))})
+        dispatch({ type: "SET_NOTES", notes: userData.notes})
         history.push('/notes')
       });
   };
