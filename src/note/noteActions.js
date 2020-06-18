@@ -37,7 +37,6 @@ export function editNote(note, history) {
 }
 
 export function deleteNote(noteId, history) {
-  console.log("delete action")
   return dispatch => {
     dispatch({ type: "START_DELETE" })
     fetch(`${API}/${noteId}`, { method: "DELETE"})
