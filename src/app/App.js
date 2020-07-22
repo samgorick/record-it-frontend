@@ -1,14 +1,15 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NoteContainer from "../note/NoteContainer";
-import Login from "./Login";
-import Navbar from "./Navbar";
-import NoteCreate from "../note/NoteCreate";
-import NoteEdit from "../note/NoteEdit";
-import NoteFullShow from "../note/NoteFullShow";
-import { connect } from "react-redux";
-import { logoutUser } from "./userActions";
-import { Container } from "semantic-ui-react";
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NoteContainer from '../note/NoteContainer';
+import Login from './Login';
+import Signup from './Signup';
+import Navbar from './Navbar';
+import NoteCreate from '../note/NoteCreate';
+import NoteEdit from '../note/NoteEdit';
+import NoteFullShow from '../note/NoteFullShow';
+import { connect } from 'react-redux';
+import { logoutUser } from './userActions';
+import { Container } from 'semantic-ui-react';
 
 const mapStateToProps = state => {
   return { loggedIn: state.users.id };
@@ -19,7 +20,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 class App extends React.Component {
-
   render() {
     return (
       <Router>
@@ -37,7 +37,8 @@ class App extends React.Component {
           </>
         ) : (
           <Container className='max-height'>
-            <Route path='/' component={Login} />
+            <Route path='/login' component={Login} />
+            <Route path='/signup' component={Signup} />
           </Container>
         )}
       </Router>

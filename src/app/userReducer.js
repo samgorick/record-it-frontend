@@ -1,9 +1,14 @@
+import { LOGIN_USER, LOGOUT_USER, SIGNUP_USER } from '../constants/Types'
+
 export default function userReducer(state = {}, action) {
   switch (action.type) {
-    case "LOGIN_USER":
+    case LOGIN_USER:
       return {id: action.userData.id, username: action.userData.username}
 
-    case "LOGOUT_USER":
+    case SIGNUP_USER:
+      return {id: action.userData.id, username: action.userData.username}
+
+    case LOGOUT_USER:
       return {}
       
     default:

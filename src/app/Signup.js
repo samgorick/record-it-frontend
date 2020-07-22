@@ -1,20 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { signupUser } from './userActions';
 import { Link } from 'react-router-dom'
-import { loginUser } from './userActions';
-import { Button, Form, Grid, Header, Segment, Loader } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
 const mapDispatchToProps = dispatch => {
   return {
-    loginUser: (username, history) => dispatch(loginUser(username, history))
+    signupUser: (user, history) => dispatch(signupUser(user, history))
   };
 };
 
-class Login extends React.Component {
+class Signup extends React.Component {
   state = {
     username: '',
     password: '',
-    isLoading: false
+    confirmation: ''
   };
 
   handleChange = event => {
@@ -24,20 +24,17 @@ class Login extends React.Component {
   };
 
   handleSubmit = () => {
-    delete this.state.isLoading
-    this.props.loginUser(this.state, this.props.history);
+    if (this.state.password === this.state.confirmation) {
+      delete this.state.confirmation
+      this.props.signupUser(this.state, this.props.history);
+    } else {
+        alert('Password must match, nobbo!')
+    } 
     this.setState({
       username: '',
-      isLoading: false
+      password: '',
+      confirmation: ''
     });
-  };
-
-  handleLoad = event => {
-    event.preventDefault();
-    this.setState({
-      isLoading: true
-    });
-    setTimeout(this.handleSubmit, 1000);
   };
 
   render() {
@@ -45,11 +42,10 @@ class Login extends React.Component {
       <Grid centered columns={2} className='max-height' verticalAlign='middle'>
         <Grid.Column>
           <Header as='h1' textAlign='center'>
-            Login
+            Sign Up
           </Header>
-          {this.state.isLoading ? <Loader active /> : null}
           <Segment>
-            <Form size='large' onSubmit={this.handleLoad}>
+            <Form size='large' onSubmit={this.handleSubmit}>
               <Form.Input
                 fluid
                 icon='user'
@@ -70,10 +66,20 @@ class Login extends React.Component {
                 placeholder='Enter password...'
                 onChange={this.handleChange}
               />
+              <Form.Input
+                fluid
+                icon='key'
+                iconPosition='left'
+                type='password'
+                name='confirmation'
+                value={this.state.confirmation}
+                placeholder='Confirm Password...'
+                onChange={this.handleChange}
+              />
               <Button fluid color='blue' size='large' type='submit'>
-                Login
+                Sign Up
               </Button>
-              <Link to="/signup">Sign Up</Link>
+              <Link to="/login">Already Signed Up? Log in instead!</Link>
             </Form>
           </Segment>
         </Grid.Column>
@@ -82,4 +88,4 @@ class Login extends React.Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Signup);
