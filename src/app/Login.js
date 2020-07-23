@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loginUser } from './userActions';
-import { Button, Form, Grid, Header, Segment, Loader } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import { Formik } from 'formik';
 
 const mapDispatchToProps = dispatch => {
@@ -12,33 +12,8 @@ const mapDispatchToProps = dispatch => {
 };
 
 class Login extends React.Component {
-  state = {
-    username: '',
-    password: '',
-    isLoading: false
-  };
-
-  handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  };
-
   handleSubmit = values => {
-    // delete this.state.isLoading
     this.props.loginUser(values, this.props.history);
-    // this.setState({
-    //   username: '',
-    //   isLoading: false
-    // });
-  };
-
-  handleLoad = event => {
-    event.preventDefault();
-    this.setState({
-      isLoading: true
-    });
-    setTimeout(this.handleSubmit, 1000);
   };
 
   render() {
@@ -48,11 +23,23 @@ class Login extends React.Component {
           <Header as='h1' textAlign='center'>
             Login
           </Header>
-          {this.state.isLoading ? <Loader active /> : null}
           <Segment>
-            <Formik initialValues={{ username: '', password: '' }} onSubmit={values => this.handleSubmit(values)}>
+            <Formik
+              initialValues={{ username: '', password: '' }}
+              validate={values => {
+                const errors = {};
+                if (!values.username) {
+                  errors.username = 'Required';
+                }
+                return errors;
+              }}
+              onSubmit={values => this.handleSubmit(values)}
+            >
               {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
                 <Form size='large' onSubmit={handleSubmit}>
+                  {errors.username && touched.username ? (
+             <Header>{errors.username}</Header>
+           ) : null}
                   <Form.Input
                     fluid
                     icon='user'
@@ -64,6 +51,7 @@ class Login extends React.Component {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
+                  {errors.password && touched.password && errors.password}
                   <Form.Input
                     fluid
                     icon='key'
