@@ -28,6 +28,7 @@ export function loginUser(user, history) {
     })
       .then(resp => resp.json())
       .then(userData => {
+        console.log(userData)
         if (userData.error) {
           dispatch({ type: LOGIN_ERROR, userData });
         } else {

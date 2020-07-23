@@ -2,14 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { loginUser } from './userActions';
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 const mapDispatchToProps = dispatch => {
   return {
     loginUser: (username, history) => dispatch(loginUser(username, history))
   };
 };
+
+const LoginSchema = Yup.object().shape({
+  username: Yup.string().required('Please enter your username'),
+  password: Yup.string().required('Please enter your password')
+});
 
 class Login extends React.Component {
   handleSubmit = values => {
@@ -24,24 +30,25 @@ class Login extends React.Component {
             Login
           </Header>
           <Segment>
+            {this.props.user.error ? (
+              <Message
+                error
+                header={this.props.user.error}
+                content='Try again, or sign up if this is your first time here'
+              />
+            ) : null}
             <Formik
               initialValues={{ username: '', password: '' }}
-              validate={values => {
-                const errors = {};
-                if (!values.username) {
-                  errors.username = 'Required';
-                }
-                return errors;
-              }}
+              validationSchema={LoginSchema}
               onSubmit={values => this.handleSubmit(values)}
             >
               {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
                 <Form size='large' onSubmit={handleSubmit}>
-                  {errors.username && touched.username ? (
-             <Header>{errors.username}</Header>
-           ) : null}
                   <Form.Input
                     fluid
+                    error={
+                      errors.username && touched.username ? { content: errors.username, pointing: 'below' } : undefined
+                    }
                     icon='user'
                     iconPosition='left'
                     type='text'
@@ -51,9 +58,11 @@ class Login extends React.Component {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  {errors.password && touched.password && errors.password}
                   <Form.Input
                     fluid
+                    error={
+                      errors.password && touched.password ? { content: errors.password, pointing: 'below' } : undefined
+                    }
                     icon='key'
                     iconPosition='left'
                     type='password'
@@ -66,15 +75,17 @@ class Login extends React.Component {
                   <Button fluid color='blue' size='large' type='submit'>
                     Login
                   </Button>
-                  <Link to='/signup'>Sign Up</Link>
                 </Form>
               )}
             </Formik>
           </Segment>
+          <Header as='h3' textAlign='center'>
+              <Link to='/signup'>Not registered? Sign Up</Link>
+            </Header>
         </Grid.Column>
       </Grid>
     );
   }
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(state => ({ user: state.users }), { loginUser })(Login);
