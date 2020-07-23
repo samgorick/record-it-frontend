@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGOUT_USER, SIGNUP_USER } from '../constants/Types'
+import { LOGIN_USER, LOGOUT_USER, SIGNUP_USER, LOGIN_ERROR } from '../constants/Types'
 
 export default function userReducer(state = {}, action) {
   switch (action.type) {
@@ -10,6 +10,9 @@ export default function userReducer(state = {}, action) {
 
     case LOGOUT_USER:
       return {}
+
+    case LOGIN_ERROR:
+      return {error: action.userData.error}
       
     default:
       return state;
