@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { loginUser } from './userActions';
 import { Button, Form, Grid, Header, Segment, Loader } from 'semantic-ui-react';
+import { Formik } from 'formik';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -23,13 +24,13 @@ class Login extends React.Component {
     });
   };
 
-  handleSubmit = () => {
-    delete this.state.isLoading
-    this.props.loginUser(this.state, this.props.history);
-    this.setState({
-      username: '',
-      isLoading: false
-    });
+  handleSubmit = values => {
+    // delete this.state.isLoading
+    this.props.loginUser(values, this.props.history);
+    // this.setState({
+    //   username: '',
+    //   isLoading: false
+    // });
   };
 
   handleLoad = event => {
@@ -49,32 +50,38 @@ class Login extends React.Component {
           </Header>
           {this.state.isLoading ? <Loader active /> : null}
           <Segment>
-            <Form size='large' onSubmit={this.handleLoad}>
-              <Form.Input
-                fluid
-                icon='user'
-                iconPosition='left'
-                type='text'
-                name='username'
-                value={this.state.username}
-                placeholder='Enter username...'
-                onChange={this.handleChange}
-              />
-              <Form.Input
-                fluid
-                icon='key'
-                iconPosition='left'
-                type='password'
-                name='password'
-                value={this.state.password}
-                placeholder='Enter password...'
-                onChange={this.handleChange}
-              />
-              <Button fluid color='blue' size='large' type='submit'>
-                Login
-              </Button>
-              <Link to="/signup">Sign Up</Link>
-            </Form>
+            <Formik initialValues={{ username: '', password: '' }} onSubmit={values => this.handleSubmit(values)}>
+              {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                <Form size='large' onSubmit={handleSubmit}>
+                  <Form.Input
+                    fluid
+                    icon='user'
+                    iconPosition='left'
+                    type='text'
+                    name='username'
+                    value={values.username}
+                    placeholder='Enter username...'
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <Form.Input
+                    fluid
+                    icon='key'
+                    iconPosition='left'
+                    type='password'
+                    name='password'
+                    value={values.password}
+                    placeholder='Enter password...'
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  <Button fluid color='blue' size='large' type='submit'>
+                    Login
+                  </Button>
+                  <Link to='/signup'>Sign Up</Link>
+                </Form>
+              )}
+            </Formik>
           </Segment>
         </Grid.Column>
       </Grid>
