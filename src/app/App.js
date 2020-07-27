@@ -7,6 +7,7 @@ import Navbar from './Navbar';
 import NoteCreate from '../note/NoteCreate';
 import NoteEdit from '../note/NoteEdit';
 import NoteFullShow from '../note/NoteFullShow';
+import FollowContainer from '../follow/FollowContainer'
 import { connect } from 'react-redux';
 import { logoutUser } from './userActions';
 import { Container } from 'semantic-ui-react';
@@ -21,6 +22,7 @@ const App = props => (
                 <Route exact path='/notes/new' component={NoteCreate} />
                 <Route exact path='/notes/:id' component={NoteFullShow} />
                 <Route exact path='/notes/edit/:id' component={NoteEdit} />
+                <Route exact path='/explore' component={FollowContainer} />
                 <Route exact path='/notes' component={NoteContainer} />
               </Switch>
             </Container>

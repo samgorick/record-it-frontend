@@ -12,6 +12,9 @@ const NavBar = props => (
         <NavLink to='/notes/new'>New Note</NavLink>
       </Menu.Item>
       <Menu.Item link>
+        <NavLink to='/explore'>Explore</NavLink>
+      </Menu.Item>
+      <Menu.Item link>
         <NavLink to='/login' onClick={props.logoutUser}>
           Sign Out
         </NavLink>
