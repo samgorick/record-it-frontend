@@ -6,12 +6,6 @@ import { Button, Form, Grid, Header, Segment, Message } from 'semantic-ui-react'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-const mapDispatchToProps = dispatch => {
-  return {
-    loginUser: (username, history) => dispatch(loginUser(username, history))
-  };
-};
-
 const LoginSchema = Yup.object().shape({
   username: Yup.string().required('Please enter your username'),
   password: Yup.string().required('Please enter your password')
@@ -42,7 +36,7 @@ class Login extends React.Component {
               validationSchema={LoginSchema}
               onSubmit={values => this.handleSubmit(values)}
             >
-              {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+              {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
                 <Form size='large' onSubmit={handleSubmit}>
                   <Form.Input
                     fluid
