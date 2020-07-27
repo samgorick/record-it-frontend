@@ -11,21 +11,11 @@ import { connect } from 'react-redux';
 import { logoutUser } from './userActions';
 import { Container } from 'semantic-ui-react';
 
-const mapStateToProps = state => {
-  return { loggedIn: state.users.id };
-};
-
-const mapDispatchToProps = dispatch => {
-  return { logout: () => dispatch(logoutUser()) };
-};
-
-class App extends React.Component {
-  render() {
-    return (
+const App = props => (
       <Router>
-        {this.props.loggedIn ? (
+        {props.loggedIn ? (
           <>
-            <Navbar logout={this.props.logout} />
+            <Navbar logoutUser={props.logoutUser} />
             <Container>
               <Switch>
                 <Route exact path='/notes/new' component={NoteCreate} />
@@ -37,13 +27,11 @@ class App extends React.Component {
           </>
         ) : (
           <Container className='max-height'>
-            <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
+            <Route path='/' component={Login} />
           </Container>
         )}
       </Router>
     );
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(state => ({loggedIn: state.users.id}), { logoutUser })(App);

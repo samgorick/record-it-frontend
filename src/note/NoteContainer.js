@@ -1,21 +1,19 @@
-import React from "react";
-import NoteSummaryShow from "./NoteSummaryShow";
-import { connect } from "react-redux";
-import { Grid, Segment, Item } from "semantic-ui-react";
-import NoteSearch from "./NoteSearch";
-
-const mapStateToProps = state => ({ notes: state.notes });
+import React from 'react';
+import NoteSummaryShow from './NoteSummaryShow';
+import { connect } from 'react-redux';
+import { Grid, Segment, Item } from 'semantic-ui-react';
+import NoteSearch from './NoteSearch';
 
 class NoteContainer extends React.Component {
   state = {
-    tag: "",
-    search: ""
+    tag: '',
+    search: ''
   };
 
   handleReset = () => {
     this.setState({
-      tag: "",
-      search: ""
+      tag: '',
+      search: ''
     });
   };
 
@@ -35,16 +33,14 @@ class NoteContainer extends React.Component {
 
   handleTag = () => {
     if (this.state.tag) {
-      return this.props.notes.filter(note =>
-      note.tags.includes(this.state.tag)
-      );
+      return this.props.notes.filter(note => note.tags.includes(this.state.tag));
     } else {
-      return this.props.notes
+      return this.props.notes;
     }
-  }
+  };
 
   handleSearch = () => {
-    const notes = this.handleTag()
+    const notes = this.handleTag();
     if (this.state.search) {
       return notes.filter(
         note =>
@@ -52,9 +48,9 @@ class NoteContainer extends React.Component {
           note.title.toLowerCase().includes(this.state.search.toLowerCase())
       );
     } else {
-      return notes
+      return notes;
     }
-  }
+  };
 
   render() {
     return (
@@ -69,8 +65,8 @@ class NoteContainer extends React.Component {
           />
           <Segment>
             <Item.Group divided>
-              {this.handleSearch().map(note => (
-                <NoteSummaryShow key={note.id} note={note} />
+              {this.handleSearch().map((note, index) => (
+                <NoteSummaryShow key={index} note={note} />
               ))}
             </Item.Group>
           </Segment>
@@ -80,4 +76,4 @@ class NoteContainer extends React.Component {
   }
 }
 
-export default connect(mapStateToProps)(NoteContainer);
+export default connect(state => ({ notes: state.notes }))(NoteContainer);

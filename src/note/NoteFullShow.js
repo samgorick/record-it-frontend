@@ -5,14 +5,6 @@ import { deleteNote } from "./noteActions";
 import { Grid, Segment, Item, Button, Icon, Label } from "semantic-ui-react";
 import moment from 'moment'
 
-const mapStateToProps = state => ({ notes: state.notes });
-
-const mapDispatchToProps = dispatch => {
-  return {
-    deleteNote: (noteId, history) => dispatch(deleteNote(noteId, history))
-  };
-};
-
 class NoteFullShow extends React.Component {
   state = {
     id: null,
@@ -97,4 +89,4 @@ class NoteFullShow extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NoteFullShow);
+export default connect(state => ({ notes: state.notes }), { deleteNote })(NoteFullShow);

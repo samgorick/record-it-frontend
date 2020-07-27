@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Item, Button, Label, Icon } from "semantic-ui-react";
-import moment from 'moment'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Item, Button, Label, Icon } from 'semantic-ui-react';
+import moment from 'moment';
 
 const NoteSummaryShow = props => (
   <Item>
@@ -10,7 +10,7 @@ const NoteSummaryShow = props => (
       <Item.Meta>{moment(props.note.updated_at).fromNow()}</Item.Meta>
       <Item.Description as='p'>
         {props.note.content.slice(0, 100)}
-        {props.note.content.length > 100 ? "..." : ""}
+        {props.note.content.length > 100 ? '...' : ''}
       </Item.Description>
       <Item.Extra>
         {props.note.tags.map(tag => (
@@ -20,7 +20,9 @@ const NoteSummaryShow = props => (
           </Label>
         ))}
         <Link key={props.note.id} to={`/notes/${props.note.id}`}>
-          <Button color="blue" floated='right'>View</Button>
+          <Button color='blue' floated='right'>
+            View
+          </Button>
         </Link>
         <Link key={props.note.id} to={`/notes/edit/${props.note.id}`}>
           <Button floated='right'>Edit</Button>

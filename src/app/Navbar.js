@@ -12,7 +12,7 @@ const NavBar = props => (
         <NavLink to='/notes/new'>New Note</NavLink>
       </Menu.Item>
       <Menu.Item link>
-        <NavLink to='/login' onClick={props.logout}>
+        <NavLink to='/login' onClick={props.logoutUser}>
           Sign Out
         </NavLink>
       </Menu.Item>

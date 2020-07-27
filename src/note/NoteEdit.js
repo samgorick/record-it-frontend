@@ -1,22 +1,14 @@
-import React from "react";
-import { connect } from "react-redux";
-import { editNote } from "./noteActions";
-import { Tags } from "../constants/Tags"
-import { Grid, Button, Form, Segment, Dropdown } from "semantic-ui-react";
-
-const mapStateToProps = state => ({ id: state.users.id, notes: state.notes });
-
-const mapDispatchToProps = dispatch => {
-  return {
-    editNote: (note, history) => dispatch(editNote(note, history))
-  };
-};
+import React from 'react';
+import { connect } from 'react-redux';
+import { editNote } from './noteActions';
+import { Tags } from '../constants/Tags';
+import { Grid, Button, Form, Segment, Dropdown } from 'semantic-ui-react';
 
 class NoteEdit extends React.Component {
   state = {
     id: null,
-    title: "",
-    content: "",
+    title: '',
+    content: '',
     tags: []
   };
 
@@ -37,8 +29,8 @@ class NoteEdit extends React.Component {
     const noteObj = { ...this.state, user_id: this.props.id };
     this.props.editNote(noteObj, this.props.history);
     this.setState({
-      title: "",
-      content: "",
+      title: '',
+      content: '',
       tags: []
     });
   };
@@ -80,7 +72,7 @@ class NoteEdit extends React.Component {
               </Form.Field>
               <Dropdown
                 name='tags'
-                className="dropdown-spacing"
+                className='dropdown-spacing'
                 onChange={this.handleDropdown}
                 value={this.state.tags}
                 placeholder='Tags...'
@@ -100,4 +92,4 @@ class NoteEdit extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NoteEdit);
+export default connect(state => ({ id: state.users.id, notes: state.notes }), { editNote })(NoteEdit);
