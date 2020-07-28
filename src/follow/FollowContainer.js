@@ -1,17 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getUsers, followRequest, getFollowedUsers } from '../follow/followActions';
+import { getUsers, followRequest, acceptRequest, declineRequest } from '../follow/followActions';
 import { Card, Header } from 'semantic-ui-react';
 import FollowCard from './FollowCard';
-import SentInfoCard from './SentInfoCard';
-import SentRequestCard from './SentRequestCard';
+import SentCard from './SentCard';
 import ReceivedRequestCard from './ReceivedRequestCard';
 import ReceivedInfoCard from './ReceivedInfoCard';
 
 class FollowContainer extends React.Component {
   componentDidMount() {
     this.props.getUsers();
-    // {() => this.props.getFollowedUsers(this.props.users.id)}
   }
 
   requestToFollow = followId => {
@@ -20,8 +18,12 @@ class FollowContainer extends React.Component {
     this.props.followRequest(followObj);
   };
 
-  acceptReceivedRequest = () => {
+  acceptReceivedRequest = followId => {
+    this.props.acceptRequest(followId)
+  }
 
+  declineReceivedRequest = followId => {
+    this.props.declineRequest(followId)
   }
 
   render() {
@@ -30,9 +32,9 @@ class FollowContainer extends React.Component {
         <Header>Requests to follow you:</Header>
         <Card.Group>
           {this.props.followers
-            .filter(user => !user.allow)
-            .map((user, index) => (
-              <ReceivedRequestCard key={index} user={user} accept={this.acceptReceivedRequest}/>
+            .filter(follow => !follow.allow)
+            .map((follow, index) => (
+              <ReceivedRequestCard key={index} follow={follow} accept={this.acceptReceivedRequest} decline={this.declineReceivedRequest}/>
             ))}
         </Card.Group>
         <Header>Your followers:</Header>
@@ -48,7 +50,7 @@ class FollowContainer extends React.Component {
           {this.props.followedUsers
             .filter(user => !user.allow)
             .map((user, index) => (
-              <SentRequestCard key={index} user={user} />
+              <SentCard key={index} user={user} />
             ))}
         </Card.Group>
         <Header>You are following:</Header>
@@ -56,7 +58,7 @@ class FollowContainer extends React.Component {
           {this.props.followedUsers
             .filter(user => user.allow)
             .map((user, index) => (
-              <SentInfoCard key={index} user={user} />
+              <SentCard key={index} user={user} />
             ))}
         </Card.Group>
         <Header>All users:</Header>
@@ -77,5 +79,5 @@ export default connect(
     followedUsers: state.followedUsers,
     followers: state.followers
   }),
-  { getUsers, followRequest, getFollowedUsers }
+  { getUsers, followRequest, acceptRequest, declineRequest }
 )(FollowContainer);
