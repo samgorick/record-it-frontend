@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGOUT_USER, SIGNUP_USER, SET_NOTES, LOGIN_ERROR } from '../constants/Types';
+import { LOGIN_USER, LOGOUT_USER, SIGNUP_USER, SET_NOTES, LOGIN_ERROR, SET_FOLLOWERS, SET_USERS_FOLLOWED } from '../constants/Types';
 
 export function signupUser(user, history) {
   return dispatch => {
@@ -34,6 +34,8 @@ export function loginUser(user, history) {
           console.log(userData)
           dispatch({ type: LOGIN_USER, userData });
           dispatch({ type: SET_NOTES, notes: userData.notes });
+          dispatch({ type: SET_FOLLOWERS, followers: userData.received_follows });
+          dispatch({ type: SET_USERS_FOLLOWED, usersFollowed: userData.given_follows })
           history.push('/notes');
         }
       });

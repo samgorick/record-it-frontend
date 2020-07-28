@@ -1,9 +1,9 @@
-import { GET_USERS } from '../constants/Types'
+import { SET_FOLLOWERS } from '../constants/Types'
 
 export default function followerReducer(state = null, action){
   switch (action.type){
-    case GET_USERS:
-      return sorted(action.users)
+    case SET_FOLLOWERS:
+      return sorted(action.followers)
 
     default:
       return state
@@ -11,5 +11,5 @@ export default function followerReducer(state = null, action){
 }
 
 function sorted(users){
-  return users.sort((a, b) => a.username.toLowerCase() > b.username.toLowerCase() ? 1: -1)
+  return users.sort((a, b) => a.follower.username.toLowerCase() > b.username.follower.toLowerCase() ? 1: -1)
 }
