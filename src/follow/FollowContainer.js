@@ -26,7 +26,17 @@ class FollowContainer extends React.Component {
     this.props.declineRequest(followId)
   }
 
+  filteredUsers = () => {
+    // Find ids of users already followed or requested to follow
+    const userIds = this.props.followedUsers.map(user => user.followed_user.id)
+    // Add current user as cannot request to follow oneself
+    userIds.push(this.props.user.id)
+    // Filter out so only users not requested can be requested to follow
+    return this.props.allUsers.filter(user => !userIds.includes(user.id))
+  }
+
   render() {
+
     return this.props.allUsers ? (
       <>
         <Header>Requests to follow you:</Header>
@@ -63,9 +73,15 @@ class FollowContainer extends React.Component {
         </Card.Group>
         <Header>All users:</Header>
         <Card.Group>
-          {this.props.allUsers.map((user, index) => (
+          {this.props.allUsers.length > 0 ? (
+            this.filteredUsers()
+            .map((user, index) => (
             <FollowCard key={index} user={user} followRequest={this.requestToFollow} />
-          ))}
+          ))
+          ) : (
+            null
+          )
+        }
         </Card.Group>
       </>
     ) : null;

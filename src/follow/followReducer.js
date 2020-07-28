@@ -8,8 +8,8 @@ export default function followerReducer(state = null, action){
     case ACCEPT_FOLLOWER:
       return sorted(state.map(follow => follow.id === action.follow.id ? action.follow : follow))
 
-    case DECLINE_FOLLOWER: 
-      return sorted(state.filter(follow => follow.id !== action.follow.id))
+    case DECLINE_FOLLOWER:
+      return sorted(state.filter(follow => follow.id !== action.followId))
 
     default:
       return state
@@ -17,5 +17,5 @@ export default function followerReducer(state = null, action){
 }
 
 function sorted(users){
-  return users.sort((a, b) => a.follower.username.toLowerCase() > b.username.follower.toLowerCase() ? 1: -1)
+  return users.sort((a, b) => a.follower.username.toLowerCase() > b.follower.username.toLowerCase() ? 1: -1)
 }

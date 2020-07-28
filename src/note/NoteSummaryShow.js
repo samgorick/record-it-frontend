@@ -6,7 +6,9 @@ import moment from 'moment';
 const NoteSummaryShow = props => (
   <Item>
     <Item.Content>
-      <Item.Header as='h1'>{props.note.title}</Item.Header>
+      <Item.Header as='h1'>
+        {props.note.title} // {props.note.username}
+      </Item.Header>
       <Item.Meta>{moment(props.note.updated_at).fromNow()}</Item.Meta>
       <Item.Description as='p'>
         {props.note.content.slice(0, 100)}
