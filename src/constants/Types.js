@@ -9,3 +9,5 @@ export const EDIT_NOTE = 'EDIT_NOTE'
 export const DELETE_NOTE = 'DELETE_NOTE'
 
 export const GET_USERS = 'GET_USERS'
+
+export const GET_FOLLOWED_USERS = 'GET_FOLLOWED_USERS'

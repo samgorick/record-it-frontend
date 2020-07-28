@@ -31,6 +31,7 @@ export function loginUser(user, history) {
         if (userData.error) {
           dispatch({ type: LOGIN_ERROR, userData });
         } else {
+          console.log(userData)
           dispatch({ type: LOGIN_USER, userData });
           dispatch({ type: SET_NOTES, notes: userData.notes });
           history.push('/notes');
