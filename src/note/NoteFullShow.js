@@ -68,30 +68,26 @@ class NoteFullShow extends React.Component {
                     </Button.Content>
                   </Button>
                 </Link>
-                {
-                 this.state.username === this.props.user.username ? (
+                {this.state.username === this.props.user.username ? (
                   <>
-                  <Link to={`/notes/edit/${this.state.id}`}>
-                  <Button animated='vertical'>
-                    <Button.Content visible>Edit</Button.Content>
-                    <Button.Content hidden>
-                      <Icon name='edit' />
-                    </Button.Content>
-                  </Button>
-                </Link>
-                <Link to='/notes' onClick={this.handleClick}>
-                  <Button color='red' floated='right' animated='vertical'>
-                    <Button.Content visible>Delete</Button.Content>
-                    <Button.Content hidden>
-                      <Icon name='trash alternate' />
-                    </Button.Content>
-                  </Button>
-                </Link>
-                </>
-                 ) : (
-                   null
-                 )
-                }
+                    <Link to={`/notes/edit/${this.state.id}`}>
+                      <Button animated='vertical'>
+                        <Button.Content visible>Edit</Button.Content>
+                        <Button.Content hidden>
+                          <Icon name='edit' />
+                        </Button.Content>
+                      </Button>
+                    </Link>
+                    <Link to='/notes' onClick={this.handleClick}>
+                      <Button color='red' floated='right' animated='vertical'>
+                        <Button.Content visible>Delete</Button.Content>
+                        <Button.Content hidden>
+                          <Icon name='trash alternate' />
+                        </Button.Content>
+                      </Button>
+                    </Link>
+                  </>
+                ) : null}
               </Item.Extra>
             </Item>
           </Segment>

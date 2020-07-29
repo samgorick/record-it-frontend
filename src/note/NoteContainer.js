@@ -3,7 +3,7 @@ import NoteSummaryShow from './NoteSummaryShow';
 import { connect } from 'react-redux';
 import { Grid, Segment, Item } from 'semantic-ui-react';
 import NoteSearch from './NoteSearch';
-import FollowerNoteSummaryShow from './FollowerNoteSummaryShow'
+import FollowerNoteSummaryShow from './FollowerNoteSummaryShow';
 
 class NoteContainer extends React.Component {
   state = {
@@ -66,13 +66,13 @@ class NoteContainer extends React.Component {
           />
           <Segment>
             <Item.Group divided>
-              {this.handleSearch().map((note, index) => (
+              {this.handleSearch().map((note, index) =>
                 note.username === this.props.user.username ? (
                   <NoteSummaryShow key={index} note={note} />
                 ) : (
                   <FollowerNoteSummaryShow key={index} note={note} />
                 )
-              ))}
+              )}
             </Item.Group>
           </Segment>
         </Grid.Column>

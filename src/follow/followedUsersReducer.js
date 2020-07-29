@@ -1,10 +1,12 @@
-import { SET_USERS_FOLLOWED } from '../constants/Types'
+import { SET_USERS_FOLLOWED, REQUEST_FOLLOW_USER } from '../constants/Types'
 
-export default function followerReducer(state = null, action){
+export default function followedUsersReducer(state = null, action){
   switch (action.type){
     case SET_USERS_FOLLOWED:
       return sorted(action.usersFollowed)
 
+    case REQUEST_FOLLOW_USER:
+      return sorted([...state, action.follow])
     default:
       return state
   }

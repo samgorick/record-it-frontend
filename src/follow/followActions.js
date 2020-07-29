@@ -1,4 +1,4 @@
-import { GET_USERS, ACCEPT_FOLLOWER, DECLINE_FOLLOWER } from '../constants/Types';
+import { GET_USERS, ACCEPT_FOLLOWER, DECLINE_FOLLOWER, REQUEST_FOLLOW_USER } from '../constants/Types';
 
 const USERAPI = 'http://localhost:3000/users'
 const FOLLOWAPI = 'http://localhost:3000/follows'
@@ -24,7 +24,7 @@ export function followRequest(followObj){
     })
     .then(resp => resp.json())
     .then(json => {
-      console.log(json)
+      dispatch({ type: REQUEST_FOLLOW_USER, follow: json})
     })
   }
 }

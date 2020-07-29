@@ -1,6 +1,6 @@
 import { SET_FOLLOWERS, ACCEPT_FOLLOWER, DECLINE_FOLLOWER } from '../constants/Types'
 
-export default function followerReducer(state = null, action){
+export default function followersReducer(state = null, action){
   switch (action.type){
     case SET_FOLLOWERS:
       return sorted(action.followers)
