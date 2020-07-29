@@ -1,10 +1,10 @@
 import { ADD_NOTE, EDIT_NOTE, DELETE_NOTE } from '../constants/Types';
 
-const API = 'http://localhost:3000/notes';
+import {ENDPOINT} from '../constants/APIs'
 
 export function addNote(note, history) {
   return dispatch => {
-    fetch(API, {
+    fetch(`${ENDPOINT}/notes`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -21,7 +21,7 @@ export function addNote(note, history) {
 
 export function editNote(note, history) {
   return dispatch => {
-    fetch(`${API}/${note.id}`, {
+    fetch(`${ENDPOINT}/notes/${note.id}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json'
@@ -38,7 +38,7 @@ export function editNote(note, history) {
 
 export function deleteNote(noteId, history) {
   return dispatch => {
-    fetch(`${API}/${noteId}`, { method: 'DELETE' })
+    fetch(`${ENDPOINT}/notes/${noteId}`, { method: 'DELETE' })
       .then(resp => resp.json())
       .then(json => {
         dispatch({ type: DELETE_NOTE, noteId });

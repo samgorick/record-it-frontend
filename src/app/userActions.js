@@ -10,12 +10,12 @@ import {
   SET_USERS_FOLLOWED
 } from '../constants/Types';
 
-const LOGIN = 'http://localhost:3000/login'
+import {ENDPOINT} from '../constants/APIs'
 
 export function signupUser(user, history) {
   return dispatch => {
     dispatch({ type: START_LOADING });
-    fetch('http://localhost:3000/signup', {
+    fetch(`${ENDPOINT}/signup`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -35,7 +35,7 @@ export function signupUser(user, history) {
 export function loginUser(user, history) {
   return dispatch => {
     dispatch({ type: START_LOADING });
-    fetch(LOGIN, {
+    fetch(`${ENDPOINT}/login`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -63,7 +63,7 @@ export function loginUser(user, history) {
 export function getCurrentUser(token) {
   return dispatch => {
     dispatch({ type: START_LOADING });
-    fetch(LOGIN, {
+    fetch(`${ENDPOINT}/login`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`
