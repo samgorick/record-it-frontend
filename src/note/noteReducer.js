@@ -1,4 +1,4 @@
-import { ADD_NOTE, EDIT_NOTE, DELETE_NOTE, SET_NOTES } from '../constants/Types'
+import { ADD_NOTE, EDIT_NOTE, DELETE_NOTE, SET_NOTES, LOGOUT_USER } from '../constants/Types'
 
 export default function noteReducer(state = [], action){
   switch (action.type){
@@ -13,6 +13,9 @@ export default function noteReducer(state = [], action){
 
     case DELETE_NOTE:
       return sorted(state.filter(note => note.id !== action.noteId))
+    
+    case LOGOUT_USER:
+      return []
     
     default:
       return state

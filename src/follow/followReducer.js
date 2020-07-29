@@ -1,4 +1,4 @@
-import { SET_FOLLOWERS, ACCEPT_FOLLOWER, DECLINE_FOLLOWER } from '../constants/Types'
+import { SET_FOLLOWERS, ACCEPT_FOLLOWER, DECLINE_FOLLOWER, LOGOUT_USER } from '../constants/Types'
 
 export default function followersReducer(state = null, action){
   switch (action.type){
@@ -10,6 +10,9 @@ export default function followersReducer(state = null, action){
 
     case DECLINE_FOLLOWER:
       return sorted(state.filter(follow => follow.id !== action.followId))
+    
+    case LOGOUT_USER:
+      return null
 
     default:
       return state

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import LoaderComponent from './loader/Loader';
 import NoteContainer from '../note/NoteContainer';
 import Login from './Login';
 import Signup from './Signup';
@@ -7,16 +8,27 @@ import Navbar from './Navbar';
 import NoteCreate from '../note/NoteCreate';
 import NoteEdit from '../note/NoteEdit';
 import NoteFullShow from '../note/NoteFullShow';
-import FollowContainer from '../follow/FollowContainer'
+import FollowContainer from '../follow/FollowContainer';
 import { connect } from 'react-redux';
-import { logoutUser } from './userActions';
+import { logoutUser, getCurrentUser } from './userActions';
 import { Container } from 'semantic-ui-react';
 
-const App = props => (
+class App extends React.Component {
+  componentDidMount() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.props.getCurrentUser(token);
+    }
+  }
+
+  render() {
+    return (
       <Router>
-        {props.loggedIn ? (
+        {this.props.loading ? (
+          <LoaderComponent />
+        ) : this.props.loggedIn ? (
           <>
-            <Navbar logoutUser={props.logoutUser} />
+            <Navbar logoutUser={this.props.logoutUser} />
             <Container>
               <Switch>
                 <Route exact path='/notes/new' component={NoteCreate} />
@@ -35,5 +47,7 @@ const App = props => (
         )}
       </Router>
     );
+  }
+}
 
-export default connect(state => ({loggedIn: state.users.id}), { logoutUser })(App);
+export default connect(state => ({ loggedIn: state.users.id, loading: state.loading }), { logoutUser, getCurrentUser })(App);
