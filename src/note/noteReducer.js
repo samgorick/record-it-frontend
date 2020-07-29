@@ -1,27 +1,27 @@
-import { ADD_NOTE, EDIT_NOTE, DELETE_NOTE, SET_NOTES, LOGOUT_USER } from '../constants/Types'
+import { ADD_NOTE, EDIT_NOTE, DELETE_NOTE, SET_NOTES, LOGOUT_USER } from '../constants/Types';
 
-export default function noteReducer(state = [], action){
-  switch (action.type){
+export default function noteReducer(state = [], action) {
+  switch (action.type) {
     case SET_NOTES:
-      return sorted(action.notes)
+      return sorted(action.notes);
 
     case ADD_NOTE:
-      return sorted([...state, action.note])
+      return sorted([...state, action.note]);
 
     case EDIT_NOTE:
-      return sorted(state.map(note => note.id === action.note.id ? action.note : note))
+      return sorted(state.map(note => (note.id === action.note.id ? action.note : note)));
 
     case DELETE_NOTE:
-      return sorted(state.filter(note => note.id !== action.noteId))
-    
+      return sorted(state.filter(note => note.id !== action.noteId));
+
     case LOGOUT_USER:
-      return []
-    
+      return [];
+
     default:
-      return state
+      return state;
   }
 }
 
-function sorted(notesArr){
-  return notesArr.sort((a, b) => a.updated_at < b.updated_at ? 1 : -1)
+function sorted(notesArr) {
+  return notesArr.sort((a, b) => (a.updated_at < b.updated_at ? 1 : -1));
 }

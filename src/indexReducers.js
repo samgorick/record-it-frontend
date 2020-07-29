@@ -1,10 +1,10 @@
-import { combineReducers } from 'redux'
-import notesReducer from './note/noteReducer'
-import userReducer from './app/userReducer'
-import allUsersReducer from './app/allUsersReducer'
-import followedUsersReducer from './follow/followedUsersReducer'
-import followersReducer from './follow/followReducer'
-import loaderReducer from './app/loader/loaderReducer'
+import { combineReducers } from 'redux';
+import notesReducer from './note/noteReducer';
+import userReducer from './app/userReducer';
+import allUsersReducer from './app/allUsersReducer';
+import followedUsersReducer from './follow/followedUsersReducer';
+import followersReducer from './follow/followReducer';
+import loaderReducer from './app/loader/loaderReducer';
 
 const rootReducer = combineReducers({
   notes: notesReducer,
@@ -13,6 +13,6 @@ const rootReducer = combineReducers({
   followedUsers: followedUsersReducer,
   followers: followersReducer,
   loading: loaderReducer
-})
+});
 
-export default rootReducer
+export default rootReducer;

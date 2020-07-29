@@ -6,8 +6,8 @@ import { Grid, Button, Form, Segment, Dropdown } from 'semantic-ui-react';
 
 class NoteCreate extends React.Component {
   state = {
-    title: "",
-    content: "",
+    title: '',
+    content: '',
     tags: []
   };
 
@@ -28,8 +28,8 @@ class NoteCreate extends React.Component {
     const noteObj = { ...this.state, user_id: this.props.id };
     this.props.addNote(noteObj, this.props.history);
     this.setState({
-      title: "",
-      content: "",
+      title: '',
+      content: '',
       tags: []
     });
   };
@@ -60,7 +60,7 @@ class NoteCreate extends React.Component {
               </Form.Field>
               <Dropdown
                 name='tags'
-                className="dropdown-spacing"
+                className='dropdown-spacing'
                 value={this.state.tags}
                 onChange={this.handleDropdown}
                 placeholder='Tags...'

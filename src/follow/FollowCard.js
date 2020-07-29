@@ -10,9 +10,9 @@ const FollowCard = props => (
       <Card.Meta>Active since: {moment(props.user.created_at).format('MMM Do')}</Card.Meta>
     </Card.Content>
     <Card.Content extra>
-        <Button fluid primary onClick={() => props.followRequest(props.user.id)}>
-          Request to follow
-        </Button>
+      <Button fluid primary onClick={() => props.followRequest(props.user.id)}>
+        Request to follow
+      </Button>
     </Card.Content>
   </Card>
 );

@@ -9,10 +9,22 @@ const ReceivedRequestCard = props => (
     </Card.Content>
     <Card.Content extra>
       <div className='ui two buttons'>
-        <Button basic color='green' onClick={() => {props.accept(props.follow.id)}}>
+        <Button
+          basic
+          color='green'
+          onClick={() => {
+            props.accept(props.follow.id);
+          }}
+        >
           Approve
         </Button>
-        <Button basic color='red' onClick={() => {props.decline(props.follow.id)}}>
+        <Button
+          basic
+          color='red'
+          onClick={() => {
+            props.decline(props.follow.id);
+          }}
+        >
           Decline
         </Button>
       </div>

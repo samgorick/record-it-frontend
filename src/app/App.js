@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { logoutUser, getCurrentUser } from './userActions';
 import { Container } from 'semantic-ui-react';
 
+// Class required for component did mount hook
 class App extends React.Component {
   componentDidMount() {
     const token = localStorage.getItem('token');

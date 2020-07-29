@@ -1,6 +1,6 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { Menu } from "semantic-ui-react";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { Menu } from 'semantic-ui-react';
 
 const NavBar = props => (
   <Menu color='blue' inverted size='massive'>
