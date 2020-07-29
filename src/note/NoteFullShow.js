@@ -1,17 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { deleteNote } from "./noteActions";
-import { Grid, Segment, Item, Button, Icon, Label } from "semantic-ui-react";
-import moment from 'moment'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { deleteNote } from './noteActions';
+import { Grid, Segment, Item, Button, Icon, Label } from 'semantic-ui-react';
+import moment from 'moment';
 
 class NoteFullShow extends React.Component {
   state = {
     id: null,
-    title: "",
-    content: "",
+    title: '',
+    content: '',
     tags: [],
-    updated_at: ""
+    updated_at: '',
+    username: ''
   };
 
   componentDidMount() {
@@ -22,7 +23,8 @@ class NoteFullShow extends React.Component {
       title: note.title,
       content: note.content,
       tags: note.tags,
-      updatedAt: note.updated_at
+      updatedAt: note.updated_at,
+      username: note.username
     });
   }
 
@@ -30,9 +32,11 @@ class NoteFullShow extends React.Component {
     this.props.deleteNote(this.state.id, this.props.history);
     this.setState({
       id: null,
-      title: "",
-      content: "",
-      tags: []
+      title: '',
+      content: '',
+      tags: [],
+      updatedAt: '',
+      username: ''
     });
   };
 
@@ -57,18 +61,21 @@ class NoteFullShow extends React.Component {
               </Item.Content>
               <Item.Extra>
                 <Link to='/notes'>
-                  <Button animated="vertical">
+                  <Button animated='vertical'>
                     <Button.Content visible>Back to all notes</Button.Content>
                     <Button.Content hidden>
-                      <Icon name="arrow left" />
+                      <Icon name='arrow left' />
                     </Button.Content>
                   </Button>
                 </Link>
-                <Link to={`/notes/edit/${this.state.id}`}>
-                  <Button animated="vertical">
+                {
+                 this.state.username === this.props.user.username ? (
+                  <>
+                  <Link to={`/notes/edit/${this.state.id}`}>
+                  <Button animated='vertical'>
                     <Button.Content visible>Edit</Button.Content>
                     <Button.Content hidden>
-                      <Icon name="edit" />
+                      <Icon name='edit' />
                     </Button.Content>
                   </Button>
                 </Link>
@@ -80,6 +87,11 @@ class NoteFullShow extends React.Component {
                     </Button.Content>
                   </Button>
                 </Link>
+                </>
+                 ) : (
+                   null
+                 )
+                }
               </Item.Extra>
             </Item>
           </Segment>
@@ -89,4 +101,4 @@ class NoteFullShow extends React.Component {
   }
 }
 
-export default connect(state => ({ notes: state.notes }), { deleteNote })(NoteFullShow);
+export default connect(state => ({ notes: state.notes, user: state.users }), { deleteNote })(NoteFullShow);

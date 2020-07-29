@@ -71,7 +71,7 @@ class NoteContainer extends React.Component {
                   <NoteSummaryShow key={index} note={note} />
                 ) : (
                   <FollowerNoteSummaryShow key={index} note={note} />
-                ) 
+                )
               ))}
             </Item.Group>
           </Segment>
