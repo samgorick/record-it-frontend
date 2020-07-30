@@ -4,7 +4,7 @@ import {ENDPOINT} from '../constants/APIs'
 
 export function addNote(note, history) {
   return dispatch => {
-    fetch(`${ENDPOINT}/notes`, {
+    fetch(`${ENDPOINT}/notes.json`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -21,7 +21,7 @@ export function addNote(note, history) {
 
 export function editNote(note, history) {
   return dispatch => {
-    fetch(`${ENDPOINT}/notes/${note.id}`, {
+    fetch(`${ENDPOINT}/notes/${note.id}.json`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json'
@@ -38,7 +38,7 @@ export function editNote(note, history) {
 
 export function deleteNote(noteId, history) {
   return dispatch => {
-    fetch(`${ENDPOINT}/notes/${noteId}`, { method: 'DELETE' })
+    fetch(`${ENDPOINT}/notes/${noteId}.json`, { method: 'DELETE' })
       .then(resp => resp.json())
       .then(json => {
         dispatch({ type: DELETE_NOTE, noteId });
