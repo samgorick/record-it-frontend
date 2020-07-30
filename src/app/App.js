@@ -36,7 +36,7 @@ class App extends React.Component {
                 <Route exact path='/notes/:id' component={NoteFullShow} />
                 <Route exact path='/notes/edit/:id' component={NoteEdit} />
                 <Route exact path='/explore' component={FollowContainer} />
-                <Route exact path='/notes' component={NoteContainer} />
+                <Route path='/notes' component={NoteContainer} />
               </Switch>
             </Container>
           </>
