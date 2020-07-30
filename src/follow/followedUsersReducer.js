@@ -17,5 +17,9 @@ export default function followedUsersReducer(state = null, action) {
 }
 
 function sorted(users) {
-  return users.sort((a, b) => (a.follower.username.toLowerCase() > b.follower.username.toLowerCase() ? 1 : -1));
+  if (users){
+    return users.sort((a, b) => (a.follower.username.toLowerCase() > b.follower.username.toLowerCase() ? 1 : -1));
+  } else {
+    return null
+  }
 }
