@@ -9,7 +9,7 @@ export function addNote(note, history) {
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify(note)
+      body: JSON.stringify({ note })
     })
       .then(resp => resp.json())
       .then(json => {
@@ -26,7 +26,7 @@ export function editNote(note, history) {
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify(note)
+      body: JSON.stringify({ note })
     })
       .then(resp => resp.json())
       .then(json => {
