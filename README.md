@@ -2,7 +2,7 @@
 
 Web application for note-taking, with the ability to request to follow other users' notes, and share your notes with others.
 
-Available to view [here](https://angry-ardinghelli-08e50b.netlify.app/).
+Available to view [here](https://record-it.netlify.app/).
 
 ## Key Features
 - Full CRUD functionality to write and store your notes, and tag them into one of 10 categories
